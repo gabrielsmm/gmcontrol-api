@@ -1,6 +1,7 @@
 package com.gabrielsmm.gmcontrol.config;
 
 import com.gabrielsmm.gmcontrol.security.JWTAuthenticationFilter;
+import com.gabrielsmm.gmcontrol.security.JWTAuthorizationFilter;
 import com.gabrielsmm.gmcontrol.security.JWTUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -52,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                         .anyRequest().authenticated())
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), jwtUtil))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), jwtUtil, userDetailsService))
                 .build();
     }
 

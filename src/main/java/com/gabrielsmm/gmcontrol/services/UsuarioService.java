@@ -4,6 +4,8 @@ import com.gabrielsmm.gmcontrol.dtos.UsuarioRequestDTO;
 import com.gabrielsmm.gmcontrol.dtos.UsuarioResponseDTO;
 import com.gabrielsmm.gmcontrol.entities.Usuario;
 import com.gabrielsmm.gmcontrol.repositories.UsuarioRepository;
+import com.gabrielsmm.gmcontrol.security.UserSS;
+import com.gabrielsmm.gmcontrol.services.exceptions.AuthorizationException;
 import com.gabrielsmm.gmcontrol.services.exceptions.DataIntegrityException;
 import com.gabrielsmm.gmcontrol.services.exceptions.ObjectNotFoundException;
 import lombok.AllArgsConstructor;
@@ -46,6 +48,14 @@ public class UsuarioService {
                     "Email: " + email + ", Tipo: " + Usuario.class.getName());
         }
         return modelMapper.map(obj, UsuarioResponseDTO.class);
+    }
+
+    public UsuarioResponseDTO findUsuarioLogado() {
+        UserSS user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Usuário não está logado");
+        }
+        return findById(user.getId());
     }
 
     public UsuarioResponseDTO insert(UsuarioRequestDTO objDto) {

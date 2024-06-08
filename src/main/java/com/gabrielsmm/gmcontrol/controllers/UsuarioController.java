@@ -24,7 +24,7 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/usuario/{usuario}")
-    public ResponseEntity<UsuarioResponseDTO> findByNome(@PathVariable String usuario) {
+    public ResponseEntity<UsuarioResponseDTO> findByUsuario(@PathVariable String usuario) {
         UsuarioResponseDTO obj = usuarioService.findByUsuario(usuario);
         return ResponseEntity.ok().body(obj);
     }
@@ -32,6 +32,12 @@ public class UsuarioController {
     @GetMapping(value = "/email/{email}")
     public ResponseEntity<UsuarioResponseDTO> findByEmail(@PathVariable String email) {
         UsuarioResponseDTO obj = usuarioService.findByEmail(email);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/usuario-logado")
+    public ResponseEntity<UsuarioResponseDTO> findUsuarioLogado() {
+        UsuarioResponseDTO obj = usuarioService.findUsuarioLogado();
         return ResponseEntity.ok().body(obj);
     }
 

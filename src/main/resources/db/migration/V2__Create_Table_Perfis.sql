@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS perfis (
     perfis INTEGER NOT NULL,
-    usuario_id INTEGER NOT NULL,
+    usuario_id BIGINT NOT NULL,
     PRIMARY KEY (perfis, usuario_id),
     CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios (id) ON DELETE CASCADE
 );

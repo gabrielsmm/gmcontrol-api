@@ -1,7 +1,8 @@
 package com.gabrielsmm.gmcontrol.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gabrielsmm.gmcontrol.entities.enums.Perfil;
+import com.gabrielsmm.gmcontrol.entities.enums.UsuarioPerfil;
+import com.gabrielsmm.gmcontrol.entities.enums.UsuarioStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,40 +19,46 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
 
-    @Column(unique = true)
-    private String usuario;
+    @Column(nullable = false, unique = true)
+    private String nomeUsuario;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @JsonIgnore
+    @Column(nullable = false)
     private String senha;
+
+    @Column(nullable = false)
+    private Integer status = UsuarioStatus.ATIVO.getCodigo();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
     private Set<Integer> perfis = new HashSet<>();
 
     public Usuario() {
-        addPerfil(Perfil.USUARIO);
+        addPerfil(UsuarioPerfil.USUARIO);
     }
 
-    public Usuario(Long id, String nome, String usuario, String email, String senha) {
+    public Usuario(Long id, String nome, String nomeUsuario, String email, String senha, UsuarioStatus status) {
         this.id = id;
         this.nome = nome;
-        this.usuario = usuario;
+        this.nomeUsuario = nomeUsuario;
         this.email = email;
         this.senha = senha;
-        addPerfil(Perfil.USUARIO);
+        this.status = (status == null) ? null : status.getCodigo();
+        addPerfil(UsuarioPerfil.USUARIO);
     }
 
-    public Set<Perfil> getPerfisEnum() {
-        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
+    public Set<UsuarioPerfil> getPerfisEnum() {
+        return perfis.stream().map(UsuarioPerfil::toEnum).collect(Collectors.toSet());
     }
 
-    public void addPerfil(Perfil perfil) {
-        perfis.add(perfil.getCodigo());
+    public void addPerfil(UsuarioPerfil usuarioPerfil) {
+        perfis.add(usuarioPerfil.getCodigo());
     }
 
 }

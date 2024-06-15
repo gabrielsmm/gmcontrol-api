@@ -4,6 +4,7 @@ import com.gabrielsmm.gmcontrol.dtos.UsuarioRequestDTO;
 import com.gabrielsmm.gmcontrol.dtos.UsuarioResponseDTO;
 import com.gabrielsmm.gmcontrol.services.UsuarioService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,9 +24,9 @@ public class UsuarioController {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/usuario/{usuario}")
-    public ResponseEntity<UsuarioResponseDTO> findByUsuario(@PathVariable String usuario) {
-        UsuarioResponseDTO obj = usuarioService.findByUsuario(usuario);
+    @GetMapping(value = "/usuario/{nomeUsuario}")
+    public ResponseEntity<UsuarioResponseDTO> findByNomeUsuario(@PathVariable String nomeUsuario) {
+        UsuarioResponseDTO obj = usuarioService.findByNomeUsuario(nomeUsuario);
         return ResponseEntity.ok().body(obj);
     }
 
@@ -59,6 +60,16 @@ public class UsuarioController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         usuarioService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<UsuarioResponseDTO>> findPage(
+            @RequestParam(value="page", defaultValue="0") Integer page,
+            @RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+            @RequestParam(value="orderBy", defaultValue="id") String orderBy,
+            @RequestParam(value="direction", defaultValue="DESC") String direction) {
+        Page<UsuarioResponseDTO> list = usuarioService.findPage(page, linesPerPage, orderBy, direction);
+        return ResponseEntity.ok().body(list);
     }
 
 }

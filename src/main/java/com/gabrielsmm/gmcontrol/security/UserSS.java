@@ -1,6 +1,6 @@
 package com.gabrielsmm.gmcontrol.security;
 
-import com.gabrielsmm.gmcontrol.entities.enums.Perfil;
+import com.gabrielsmm.gmcontrol.entities.enums.UsuarioPerfil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +20,7 @@ public class UserSS implements UserDetails {
     private String senha;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserSS(Long id, String usuario, String senha, Set<Perfil> perfis) {
+    public UserSS(Long id, String usuario, String senha, Set<UsuarioPerfil> perfis) {
         this.id = id;
         this.usuario = usuario;
         this.senha = senha;
@@ -62,8 +62,8 @@ public class UserSS implements UserDetails {
         return true;
     }
 
-    public boolean hasRole(Perfil perfil) {
-        return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+    public boolean hasRole(UsuarioPerfil usuarioPerfil) {
+        return getAuthorities().contains(new SimpleGrantedAuthority(usuarioPerfil.getDescricao()));
     }
 
 }

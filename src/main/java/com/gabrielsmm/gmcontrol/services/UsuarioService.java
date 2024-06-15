@@ -10,6 +10,9 @@ import com.gabrielsmm.gmcontrol.services.exceptions.DataIntegrityException;
 import com.gabrielsmm.gmcontrol.services.exceptions.ObjectNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +35,11 @@ public class UsuarioService {
         return modelMapper.map(usuario, UsuarioResponseDTO.class);
     }
 
-    public UsuarioResponseDTO findByUsuario(String usuario) {
-        Usuario obj = usuarioRepository.findByUsuario(usuario);
+    public UsuarioResponseDTO findByNomeUsuario(String nomeUsuario) {
+        Usuario obj = usuarioRepository.findByNomeUsuario(nomeUsuario);
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não encontrado! " +
-                    "Usuário: " + usuario + ", Tipo: " + Usuario.class.getName());
+                    "Usuário: " + nomeUsuario + ", Tipo: " + Usuario.class.getName());
         }
         return modelMapper.map(obj, UsuarioResponseDTO.class);
     }
@@ -91,6 +94,13 @@ public class UsuarioService {
         Optional<Usuario> obj = usuarioRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! " +
                 "Id: " + id + ", Tipo: " + Usuario.class.getName()));
+    }
+
+    public Page<UsuarioResponseDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Page<Usuario> usuariosPage = usuarioRepository.findAll(pageRequest);
+
+        return usuariosPage.map(usuario -> modelMapper.map(usuario, UsuarioResponseDTO.class));
     }
 
 }

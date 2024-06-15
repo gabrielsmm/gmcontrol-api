@@ -3,7 +3,7 @@ package com.gabrielsmm.gmcontrol.entities.enums;
 import lombok.Getter;
 
 @Getter
-public enum Perfil {
+public enum UsuarioPerfil {
 
     MASTER(1, "ROLE_MASTER"),
     ADMIN(2, "ROLE_ADMIN"),
@@ -12,17 +12,17 @@ public enum Perfil {
     private int codigo;
     private String descricao;
 
-    private Perfil(int codigo, String descricao) {
+    private UsuarioPerfil(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
 
-    public static Perfil toEnum(Integer codigo) {
+    public static UsuarioPerfil toEnum(Integer codigo) {
         if (codigo == null) {
             return null;
         }
 
-        for (Perfil x : Perfil.values()) {
+        for (UsuarioPerfil x : UsuarioPerfil.values()) {
             if (codigo.equals(x.getCodigo())) {
                 return x;
             }

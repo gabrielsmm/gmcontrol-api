@@ -9,8 +9,9 @@ public class UsuarioResponseDTO {
 
     private Long id;
     private String nome;
-    private String usuario;
+    private String nomeUsuario;
     private String email;
+    private Integer status;
     private Set<Integer> perfis;
 
 }

@@ -8,9 +8,10 @@ import java.util.Set;
 public class UsuarioRequestDTO {
 
     private String nome;
-    private String usuario;
+    private String nomeUsuario;
     private String email;
     private String senha;
+    private Integer status;
     private Set<Integer> perfis;
 
 }

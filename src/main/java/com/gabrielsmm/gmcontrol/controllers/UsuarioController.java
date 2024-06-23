@@ -1,8 +1,10 @@
 package com.gabrielsmm.gmcontrol.controllers;
 
-import com.gabrielsmm.gmcontrol.dtos.UsuarioRequestDTO;
+import com.gabrielsmm.gmcontrol.dtos.UsuarioInsertRequestDTO;
 import com.gabrielsmm.gmcontrol.dtos.UsuarioResponseDTO;
+import com.gabrielsmm.gmcontrol.dtos.UsuarioUpdateRequestDTO;
 import com.gabrielsmm.gmcontrol.services.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +45,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody UsuarioRequestDTO objDto) {
+    public ResponseEntity<Void> insert(@RequestBody @Valid UsuarioInsertRequestDTO objDto) {
         UsuarioResponseDTO obj = usuarioService.insert(objDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -51,7 +53,7 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody UsuarioRequestDTO objDto) {
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid UsuarioUpdateRequestDTO objDto) {
         usuarioService.update(id, objDto);
         return ResponseEntity.noContent().build();
     }

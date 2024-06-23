@@ -1,13 +1,15 @@
 package com.gabrielsmm.gmcontrol.services;
 
-import com.gabrielsmm.gmcontrol.dtos.UsuarioRequestDTO;
+import com.gabrielsmm.gmcontrol.dtos.UsuarioInsertRequestDTO;
 import com.gabrielsmm.gmcontrol.dtos.UsuarioResponseDTO;
+import com.gabrielsmm.gmcontrol.dtos.UsuarioUpdateRequestDTO;
 import com.gabrielsmm.gmcontrol.entities.Usuario;
 import com.gabrielsmm.gmcontrol.repositories.UsuarioRepository;
 import com.gabrielsmm.gmcontrol.security.UserSS;
 import com.gabrielsmm.gmcontrol.services.exceptions.AuthorizationException;
 import com.gabrielsmm.gmcontrol.services.exceptions.DataIntegrityException;
 import com.gabrielsmm.gmcontrol.services.exceptions.ObjectNotFoundException;
+import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -61,7 +63,7 @@ public class UsuarioService {
         return findById(user.getId());
     }
 
-    public UsuarioResponseDTO insert(UsuarioRequestDTO objDto) {
+    public UsuarioResponseDTO insert(UsuarioInsertRequestDTO objDto) {
         Usuario usuario = modelMapper.map(objDto, Usuario.class);
         usuario.setId(null);
         usuario.setSenha(bCryptPasswordEncoder.encode(objDto.getSenha()));
@@ -73,10 +75,12 @@ public class UsuarioService {
         }
     }
 
-    public UsuarioResponseDTO update(Long id, UsuarioRequestDTO objDto) {
+    public UsuarioResponseDTO update(Long id, UsuarioUpdateRequestDTO objDto) {
         Usuario usuario = find(id);
         modelMapper.map(objDto, usuario);
-        usuario.setSenha(bCryptPasswordEncoder.encode(objDto.getSenha()));
+        if (StringUtils.isNotBlank(objDto.getSenha())) {
+            usuario.setSenha(bCryptPasswordEncoder.encode(objDto.getSenha()));
+        }
         usuario = usuarioRepository.save(usuario);
         return modelMapper.map(usuario, UsuarioResponseDTO.class);
     }

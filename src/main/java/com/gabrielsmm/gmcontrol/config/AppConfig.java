@@ -10,7 +10,13 @@ public class AppConfig {
     @Bean
     ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
+
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
+        modelMapper.getConfiguration().setPropertyCondition(context ->
+            context.getSource() != null
+        );
+
         return modelMapper;
     }
 

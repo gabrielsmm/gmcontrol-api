@@ -39,6 +39,9 @@ public class Usuario {
     @CollectionTable(name = "PERFIS")
     private Set<Integer> perfis = new HashSet<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UsuarioModulo> usuarioModulos = new HashSet<>();
+
     public Usuario() {
         addPerfil(UsuarioPerfil.USUARIO);
     }

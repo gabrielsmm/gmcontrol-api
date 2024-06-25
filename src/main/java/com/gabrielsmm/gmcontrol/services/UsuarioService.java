@@ -94,7 +94,7 @@ public class UsuarioService {
         }
     }
 
-    private Usuario find(Long id) {
+    public Usuario find(Long id) {
         Optional<Usuario> obj = usuarioRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! " +
                 "Id: " + id + ", Tipo: " + Usuario.class.getName()));

@@ -13,5 +13,6 @@ public class UsuarioResponseDTO {
     private String email;
     private Integer status;
     private Set<Integer> perfis;
+    private Set<Integer> usuarioModulos;
 
 }

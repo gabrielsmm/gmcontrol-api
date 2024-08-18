@@ -36,8 +36,8 @@ public class UsuarioModuloService {
 
     public void atualizarAcesso(Long usuarioId, UsuarioModuloAcessoDTO objDto) {
         Usuario usuario = usuarioService.find(usuarioId);
-
         Modulo modulo = Modulo.toEnum(objDto.getCodigo());
+
         Optional<UsuarioModulo> usuarioModuloOpt = usuarioModuloRepository.findByUsuarioIdAndModulo(usuarioId, modulo.getCodigo());
 
         if (objDto.isPossuiAcesso()) {
@@ -49,10 +49,14 @@ public class UsuarioModuloService {
                 usuarioModulo.setModulo(modulo.getCodigo());
                 usuarioModulo.setChaveAgrupamento(chaveAgrupamento);
 
+                usuario.getUsuarioModulos().add(usuarioModulo);
                 usuarioModuloRepository.save(usuarioModulo);
             }
         } else {
-            usuarioModuloOpt.ifPresent(usuarioModuloRepository::delete);
+            if (usuarioModuloOpt.isPresent()) {
+                usuario.getUsuarioModulos().remove(usuarioModuloOpt.get());
+                usuarioModuloRepository.delete(usuarioModuloOpt.get());
+            }
         }
     }
 

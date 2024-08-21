@@ -5,6 +5,7 @@ import com.gabrielsmm.gmcontrol.dtos.UsuarioResponseDTO;
 import com.gabrielsmm.gmcontrol.dtos.UsuarioUpdateRequestDTO;
 import com.gabrielsmm.gmcontrol.entities.Usuario;
 import com.gabrielsmm.gmcontrol.repositories.UsuarioRepository;
+import com.gabrielsmm.gmcontrol.repositories.specifications.UsuarioSpecification;
 import com.gabrielsmm.gmcontrol.security.UserSS;
 import com.gabrielsmm.gmcontrol.services.exceptions.AuthorizationException;
 import com.gabrielsmm.gmcontrol.services.exceptions.DataIntegrityException;
@@ -100,9 +101,15 @@ public class UsuarioService {
                 "Id: " + id + ", Tipo: " + Usuario.class.getName()));
     }
 
-    public Page<UsuarioResponseDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<UsuarioResponseDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction, String filtro) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<Usuario> usuariosPage = usuarioRepository.findAll(pageRequest);
+        Page<Usuario> usuariosPage;
+
+        if (StringUtils.isNotBlank(filtro)) {
+            usuariosPage = usuarioRepository.findAll(UsuarioSpecification.contemTextoNosAtributos(filtro), pageRequest);
+        } else {
+            usuariosPage = usuarioRepository.findAll(pageRequest);
+        }
 
         return usuariosPage.map(usuario -> modelMapper.map(usuario, UsuarioResponseDTO.class));
     }

@@ -64,14 +64,14 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/page")
-    public ResponseEntity<Page<UsuarioResponseDTO>> findPage(
-            @RequestParam(value="page", defaultValue="0") Integer page,
-            @RequestParam(value="linesPerPage", defaultValue="10") Integer linesPerPage,
-            @RequestParam(value="orderBy", defaultValue="id") String orderBy,
-            @RequestParam(value="direction", defaultValue="DESC") String direction,
+    @GetMapping(value = "/lista-paginada")
+    public ResponseEntity<Page<UsuarioResponseDTO>> getListaPaginada(
+            @RequestParam(value="pagina", defaultValue="0") Integer pagina,
+            @RequestParam(value="registrosPorPagina", defaultValue="10") Integer registrosPorPagina,
+            @RequestParam(value="ordem", defaultValue="id") String ordem,
+            @RequestParam(value="direcao", defaultValue="DESC") String direcao,
             @RequestParam(value="filtro", required = false) String filtro) {
-        Page<UsuarioResponseDTO> list = usuarioService.findPage(page, linesPerPage, orderBy, direction, filtro);
+        Page<UsuarioResponseDTO> list = usuarioService.getListaPaginada(pagina, registrosPorPagina, ordem, direcao, filtro);
         return ResponseEntity.ok().body(list);
     }
 

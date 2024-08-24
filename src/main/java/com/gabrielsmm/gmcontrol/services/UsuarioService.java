@@ -101,8 +101,8 @@ public class UsuarioService {
                 "Id: " + id + ", Tipo: " + Usuario.class.getName()));
     }
 
-    public Page<UsuarioResponseDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction, String filtro) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+    public Page<UsuarioResponseDTO> getListaPaginada(Integer pagina, Integer registrosPorPagina, String ordem, String direcao, String filtro) {
+        PageRequest pageRequest = PageRequest.of(pagina, registrosPorPagina, Sort.Direction.valueOf(direcao), ordem);
         Page<Usuario> usuariosPage;
 
         if (StringUtils.isNotBlank(filtro)) {

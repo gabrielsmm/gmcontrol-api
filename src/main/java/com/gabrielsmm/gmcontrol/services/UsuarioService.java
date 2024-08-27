@@ -31,6 +31,12 @@ public class UsuarioService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public Usuario find(Long id) {
+        Optional<Usuario> obj = usuarioRepository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! " +
+                "Id: " + id + ", Tipo: " + Usuario.class.getName()));
+    }
+
     public UsuarioResponseDTO findById(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado com o ID: " + id));
@@ -93,12 +99,6 @@ public class UsuarioService {
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível excluir, erro de integridade de dados");
         }
-    }
-
-    public Usuario find(Long id) {
-        Optional<Usuario> obj = usuarioRepository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! " +
-                "Id: " + id + ", Tipo: " + Usuario.class.getName()));
     }
 
     public Page<UsuarioResponseDTO> getListaPaginada(Integer pagina, Integer registrosPorPagina, String ordem, String direcao, String filtro) {

@@ -45,6 +45,14 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<UsuarioModulo> usuarioModulos = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "usuarios_igrejas",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "igreja_id")
+    )
+    private Set<Igreja> igrejas = new HashSet<>();
+
     public Usuario() {
         addPerfil(UsuarioPerfil.USUARIO);
     }

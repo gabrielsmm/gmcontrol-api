@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -42,12 +41,9 @@ public class UsuarioModuloService {
 
         if (objDto.isPossuiAcesso()) {
             if (usuarioModuloOpt.isEmpty()) {
-                UUID chaveAgrupamento = UUID.randomUUID();
-
                 UsuarioModulo usuarioModulo = new UsuarioModulo();
                 usuarioModulo.setUsuario(usuario);
                 usuarioModulo.setModulo(modulo.getCodigo());
-                usuarioModulo.setChaveAgrupamento(chaveAgrupamento);
 
                 usuario.getUsuarioModulos().add(usuarioModulo);
                 usuarioModuloRepository.save(usuarioModulo);

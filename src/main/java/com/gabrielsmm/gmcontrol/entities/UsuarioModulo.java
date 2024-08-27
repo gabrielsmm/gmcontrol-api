@@ -7,8 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.UUID;
-
 @Data
 @ToString(exclude = { "usuario" })
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -29,14 +27,10 @@ public class UsuarioModulo {
     @Column(name = "modulo", nullable = false)
     private Integer modulo;
 
-    @Column(name = "chave_agrupamento", nullable = false)
-    private UUID chaveAgrupamento;
-
-    public UsuarioModulo(Long id, Usuario usuario, Modulo modulo, UUID chaveAgrupamento) {
+    public UsuarioModulo(Long id, Usuario usuario, Modulo modulo) {
         this.id = id;
         this.usuario = usuario;
         this.modulo = (modulo == null) ? null : modulo.getCodigo();
-        this.chaveAgrupamento = chaveAgrupamento;
     }
 
 }

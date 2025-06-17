@@ -13,7 +13,7 @@ public class UsuarioModuloToIntegerConverter implements Converter<Collection<Usu
     @Override
     public Set<Integer> convert(MappingContext<Collection<UsuarioModulo>, Set<Integer>> context) {
         return context.getSource().stream()
-                .map(UsuarioModulo::getModulo)
+                .map((usuarioModulo -> usuarioModulo.getModulo().getId()))
                 .collect(Collectors.toSet());
     }
 

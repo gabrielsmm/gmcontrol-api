@@ -74,7 +74,7 @@ public class IgrejaService {
             igrejasPage = igrejaRepository.findAll(pageRequest);
         }
 
-        return igrejasPage.map(usuario -> modelMapper.map(usuario, IgrejaDTO.class));
+        return igrejasPage.map(igreja -> modelMapper.map(igreja, IgrejaDTO.class));
     }
 
 }

@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS modulos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO modulos (id, nome) VALUES (1, 'Membresia Cristã') ON CONFLICT DO NOTHING;

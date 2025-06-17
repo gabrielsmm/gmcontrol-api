@@ -1,6 +1,5 @@
 package com.gabrielsmm.gmcontrol.entities;
 
-import com.gabrielsmm.gmcontrol.entities.enums.Modulo;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,13 +23,14 @@ public class UsuarioModulo {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "modulo", nullable = false)
-    private Integer modulo;
+    @ManyToOne
+    @JoinColumn(name = "modulo_id", nullable = false)
+    private Modulo modulo;
 
     public UsuarioModulo(Long id, Usuario usuario, Modulo modulo) {
         this.id = id;
         this.usuario = usuario;
-        this.modulo = (modulo == null) ? null : modulo.getCodigo();
+        this.modulo = modulo;
     }
 
 }

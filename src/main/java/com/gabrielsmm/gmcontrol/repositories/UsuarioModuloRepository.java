@@ -10,6 +10,6 @@ public interface UsuarioModuloRepository extends JpaRepository<UsuarioModulo, Lo
 
     List<UsuarioModulo> findByUsuarioId(Long usuarioId);
 
-    Optional<UsuarioModulo> findByUsuarioIdAndModulo(Long usuarioId, Integer modulo);
+    Optional<UsuarioModulo> findByUsuarioIdAndModuloId(Long usuarioId, Integer moduloId);
 
 }

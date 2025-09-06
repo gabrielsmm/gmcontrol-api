@@ -10,5 +10,7 @@ CREATE TABLE IF NOT EXISTS igrejas (
     data_fundacao DATE,
     representante VARCHAR(255),
     site VARCHAR(255),
-    observacoes TEXT
+    observacoes TEXT,
+    matriz_id BIGINT,
+    CONSTRAINT fk_matriz FOREIGN KEY (matriz_id) REFERENCES igrejas(id) ON DELETE SET NULL
 );

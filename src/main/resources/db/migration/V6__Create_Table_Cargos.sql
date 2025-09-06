@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS cargos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    descricao TEXT
+);

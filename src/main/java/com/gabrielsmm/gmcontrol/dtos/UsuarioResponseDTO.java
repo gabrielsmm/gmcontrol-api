@@ -13,7 +13,7 @@ public class UsuarioResponseDTO {
     private String nomeUsuario;
     private String email;
     private UsuarioStatus status;
-    private Set<Integer> perfis;
+    private Set<PerfilDTO> perfis;
     private Set<Integer> usuarioModulos;
 
 }

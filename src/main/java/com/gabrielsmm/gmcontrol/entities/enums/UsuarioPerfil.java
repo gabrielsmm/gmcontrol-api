@@ -4,31 +4,16 @@ import lombok.Getter;
 
 @Getter
 public enum UsuarioPerfil {
+    MASTER("ROLE_MASTER"),
+    ADMIN("ROLE_ADMIN"),
+    TESOUREIRO("ROLE_TESOUREIRO"),
+    PASTOR("ROLE_PASTOR"),
+    SECRETARIO("ROLE_SECRETARIO"),
+    USUARIO("ROLE_USUARIO");
 
-    MASTER(1, "ROLE_MASTER"),
-    ADMIN(2, "ROLE_ADMIN"),
-    USUARIO(3, "ROLE_USUARIO");
+    private final String role;
 
-    private int codigo;
-    private String descricao;
-
-    private UsuarioPerfil(int codigo, String descricao) {
-        this.codigo = codigo;
-        this.descricao = descricao;
+    UsuarioPerfil(String role) {
+        this.role = role;
     }
-
-    public static UsuarioPerfil toEnum(Integer codigo) {
-        if (codigo == null) {
-            return null;
-        }
-
-        for (UsuarioPerfil x : UsuarioPerfil.values()) {
-            if (codigo.equals(x.getCodigo())) {
-                return x;
-            }
-        }
-
-        throw new IllegalArgumentException("Id inválido: " + codigo);
-    }
-
 }

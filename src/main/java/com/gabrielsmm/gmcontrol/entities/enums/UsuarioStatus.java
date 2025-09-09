@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum UsuarioStatus {
 
-    ATIVO("ativo"),
-    INATIVO("inativo");
+    ATIVO("ATIVO"),
+    INATIVO("INATIVO");
 
     private final String valor;
 

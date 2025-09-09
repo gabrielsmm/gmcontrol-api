@@ -1,5 +1,6 @@
 package com.gabrielsmm.gmcontrol.dtos;
 
+import com.gabrielsmm.gmcontrol.entities.enums.UsuarioStatus;
 import lombok.Data;
 
 import java.util.Set;
@@ -11,7 +12,7 @@ public class UsuarioResponseDTO {
     private String nome;
     private String nomeUsuario;
     private String email;
-    private Integer status;
+    private UsuarioStatus status;
     private Set<Integer> perfis;
     private Set<Integer> usuarioModulos;
 

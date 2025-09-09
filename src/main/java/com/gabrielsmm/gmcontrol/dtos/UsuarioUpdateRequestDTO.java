@@ -1,5 +1,6 @@
 package com.gabrielsmm.gmcontrol.dtos;
 
+import com.gabrielsmm.gmcontrol.entities.enums.UsuarioStatus;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -22,7 +23,7 @@ public class UsuarioUpdateRequestDTO {
     private String senha;
 
     @NotNull(message = "Informe o status do usuário")
-    private Integer status;
+    private UsuarioStatus status;
 
     @NotEmpty(message = "Informe pelo menos um perfil")
     private Set<Integer> perfis;

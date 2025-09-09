@@ -5,22 +5,26 @@ import lombok.Getter;
 @Getter
 public enum UsuarioStatus {
 
-    ATIVO(1),
-    INATIVO(2);
+    ATIVO("ativo"),
+    INATIVO("inativo");
 
-    private final int codigo;
+    private final String valor;
 
-    private UsuarioStatus(int codigo) {
-        this.codigo = codigo;
+    UsuarioStatus(String valor) {
+        this.valor = valor;
     }
 
-    public static UsuarioStatus fromCodigo(int codigo) {
+    public String getValor() {
+        return valor;
+    }
+
+    public static UsuarioStatus fromValor(String valor) {
         for (UsuarioStatus status : UsuarioStatus.values()) {
-            if (status.getCodigo() == codigo) {
+            if (status.getValor().equalsIgnoreCase(valor)) {
                 return status;
             }
         }
-        throw new IllegalArgumentException("Código inválido para Status: " + codigo);
+        throw new IllegalArgumentException("Status inválido: " + valor);
     }
 
 }

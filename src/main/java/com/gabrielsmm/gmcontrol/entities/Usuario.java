@@ -35,8 +35,9 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    @Column(nullable = false)
-    private Integer status = UsuarioStatus.ATIVO.getCodigo();
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "usuario_status_enum default 'ativo'")
+    private UsuarioStatus status = UsuarioStatus.ATIVO;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
@@ -63,7 +64,7 @@ public class Usuario {
         this.nomeUsuario = nomeUsuario;
         this.email = email;
         this.senha = senha;
-        this.status = (status == null) ? null : status.getCodigo();
+        this.status = (status == null) ? UsuarioStatus.ATIVO : status;
         addPerfil(UsuarioPerfil.USUARIO);
     }
 

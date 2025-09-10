@@ -1,7 +1,7 @@
 package com.gabrielsmm.gmcontrol.controllers;
 
 import com.gabrielsmm.gmcontrol.dtos.UsuarioModuloAcessoDTO;
-import com.gabrielsmm.gmcontrol.services.UsuarioModuloService;
+import com.gabrielsmm.gmcontrol.services.UsuarioModuloAcessoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/usuarios-modulos")
-public class UsuarioModuloController {
+public class UsuarioModuloAcessoController {
 
-    private UsuarioModuloService usuarioModuloService;
+    private UsuarioModuloAcessoService usuarioModuloService;
 
     @GetMapping(value = "/lista-modulos/{usuarioId}")
     public ResponseEntity<List<UsuarioModuloAcessoDTO>> getListaModulos(@PathVariable Long usuarioId) {

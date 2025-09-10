@@ -14,6 +14,6 @@ public class UsuarioResponseDTO {
     private String email;
     private UsuarioStatus status;
     private Set<PerfilDTO> perfis;
-    private Set<Integer> usuarioModulos;
+    private Set<ModuloDTO> modulos;
 
 }

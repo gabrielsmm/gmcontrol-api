@@ -1,9 +1,6 @@
 package com.gabrielsmm.gmcontrol.services;
 
-import com.gabrielsmm.gmcontrol.dtos.PerfilDTO;
-import com.gabrielsmm.gmcontrol.dtos.UsuarioInsertRequestDTO;
-import com.gabrielsmm.gmcontrol.dtos.UsuarioResponseDTO;
-import com.gabrielsmm.gmcontrol.dtos.UsuarioUpdateRequestDTO;
+import com.gabrielsmm.gmcontrol.dtos.*;
 import com.gabrielsmm.gmcontrol.entities.Perfil;
 import com.gabrielsmm.gmcontrol.entities.Usuario;
 import com.gabrielsmm.gmcontrol.repositories.PerfilRepository;
@@ -109,6 +106,10 @@ public class UsuarioService {
         return toResponseDTO(usuario);
     }
 
+    public Usuario save(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
     public void delete(Long id) {
         find(id);
         try {
@@ -135,6 +136,9 @@ public class UsuarioService {
         UsuarioResponseDTO dto = modelMapper.map(usuario, UsuarioResponseDTO.class);
         dto.setPerfis(usuario.getPerfis().stream()
                 .map(p -> new PerfilDTO(p.getId(), p.getNome()))
+                .collect(Collectors.toSet()));
+        dto.setModulos(usuario.getModulos().stream()
+                .map(m -> new ModuloDTO(m.getId(), m.getNome()))
                 .collect(Collectors.toSet()));
         return dto;
     }

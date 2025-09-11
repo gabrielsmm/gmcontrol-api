@@ -11,7 +11,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class UsuarioModuloAcessoService {
+public class UsuarioModuloService {
 
     private UsuarioService usuarioService;
 
